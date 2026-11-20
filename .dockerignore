@@ -1,0 +1,9 @@
+bin/
+obj/
+.git/
+.gitignore
+.vs/
+.idea/
+.vscode/
+**/appsettings.Local.json
+*.md

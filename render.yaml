@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: lab14-ederson-vilca
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerFilePath: ./Dockerfile
+    healthCheckPath: /swagger/v1/swagger.json
+    autoDeploy: true
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ConnectionStrings__DefaultConnection
+        sync: false
+      - key: jwt
+        sync: false

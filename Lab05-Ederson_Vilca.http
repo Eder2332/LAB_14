@@ -1,0 +1,6 @@
+@Lab05_Ederson_Vilca_HostAddress = http://localhost:5162
+
+GET {{Lab05_Ederson_Vilca_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
