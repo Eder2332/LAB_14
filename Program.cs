@@ -68,6 +68,23 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+// Crea las tablas automaticamente si no existen (util en Render, donde la BD empieza vacia).
+// Si la conexion falla, se registra el error pero la app igual arranca para que Swagger sea accesible.
+using (var scope = app.Services.CreateScope())
+{
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    try
+    {
+        var db = scope.ServiceProvider.GetRequiredService<ColegioDbContext>();
+        db.Database.EnsureCreated();
+        logger.LogInformation("Base de datos verificada/creada correctamente.");
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "No se pudo crear/verificar la base de datos. Revisa la variable ConnectionStrings__DefaultConnection.");
+    }
+}
+
 if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("EnableSwagger"))
 {
     app.UseSwagger();
